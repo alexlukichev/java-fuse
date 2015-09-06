@@ -27,14 +27,14 @@ function start_java() {
     if [ ! -z $tgz ]; then
       echo "Newest one is: $tgz"
       main_dir=$wd/.dist
-      modified_cp=$(echo $cp|awk 'BEGIN {FS=":"} { for (i=1;i<=NF;i++) { print $i; }}'|while read d; do echo "$main_dir/$d"; done|tr "\n" ":")
+      modified_cp=$(echo $cp|awk 'BEGIN {FS=":"} { for (i=1;i<=NF;i++) { print $i; }}'|while read d; do if [[ $d == /* ]]; then echo "$d"; else echo "$main_dir/$d"; fi done|tr "\n" ":")$wd
       actual_cp="$modified_cp"
       echo "Modified classpath: $actual_cp"
       echo "Unpacking in ${main_dir}..."
       (rm -rf $main_dir; mkdir -p $main_dir && cd $main_dir && tar zxf $tgz --strip=1)
     fi
   fi
-  ( cd $wd; java -cp "$wd:$actual_cp" $jvmopts $main $args )
+  ( cd $wd; java $jvmopts -cp "$actual_cp" $main $args )
   rm -f .lock
 }
 

@@ -3,7 +3,7 @@ MAINTAINER Alexander Lukichev
 EXPOSE 5000
 
 RUN apt-get update
-RUN apt-get install -y 
+RUN apt-get install -y fuse
 RUN apt-get clean all
 
 ADD http://gocfs.s3-website-us-east-1.amazonaws.com/gocfs /gocfs
