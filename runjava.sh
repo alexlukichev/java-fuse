@@ -1,4 +1,9 @@
 #!/bin/bash
+debug=${DEBUG:-0}
+
+if [ $debug -ne 0 ]; then
+  set -x
+fi
 
 cassandra=${CASSANDRA:-cassandra}
 wd=${JAVA_WORKDIR:-.}
