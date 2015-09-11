@@ -36,7 +36,7 @@ function start_java() {
       actual_cp="$modified_cp"
       echo "Modified classpath: $actual_cp"
       echo "Unpacking in ${main_dir}..."
-      (rm -rf $main_dir; mkdir -p $main_dir && cd $main_dir && tar zxf $archive/$tgz --strip=1)
+      (rm -rf $main_dir; mkdir -p $main_dir && cd $main_dir && tar zxf $archive/$tgz --strip=1) || exit 3
     fi
   fi
   ( cd $wd; java $jvmopts -cp "$actual_cp" $main $args )
